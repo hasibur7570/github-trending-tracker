@@ -1,10 +1,4 @@
-# Github Tending Tracker
-
-### Installation Instructin:
-
-```bash
 conda create -n github_star_repo python==3.12 -y
 conda activate github_star_repo
 pip install -r requirements.txt
-```
 

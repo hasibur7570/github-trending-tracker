@@ -1,0 +1,12 @@
+scraper:
+  trending_url: "https://github.com/trending"
+  since: "daily" # daily, weekly, monthly
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+
+database:
+  path: "data/github_trending.db"
+  
+output:
+  folder: "output"
+
+
