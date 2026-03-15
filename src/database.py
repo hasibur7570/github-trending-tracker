@@ -30,5 +30,13 @@ class DatabaseManager:
         conn.commit()
         conn.close()
 
+    def date_exists(self, date: str) -> bool:
+        conn = self._connect()
+        cur = conn.cursor()
+        cur.execute("SELECT 1 FROM trending_repos WHERE date= ? LIMIT 1", (date,))
+        exists = cur.fetchone() is not None
+        conn.close()
+        return exists
+
 
     
