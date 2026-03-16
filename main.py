@@ -8,6 +8,7 @@ if PROJECT_ROOT not in sys.path:
 
 from src.database import DatabaseManager
 from src.utils import load_config, ensure_folder_exists, get_today_date
+from src.scraper import GitHubScraper
 
 
 def main():
@@ -33,6 +34,12 @@ def main():
         headers={"user-agent": cfg["scraper"].get("user_agent", "Mozilla/5.0")}
 
         print("Starting scrape: ", url)
+        scraper = GitHubScraper(url, headers=headers)
+        try:
+            repos = scraper.scrape_trending()
+            print(repos)
+        except Exception as e:
+            print(f"Exception occured while scraping data from github. Error: {e}")
 
 
 if __name__ == "__main__":
