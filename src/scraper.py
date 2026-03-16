@@ -4,9 +4,6 @@ from bs4 import BeautifulSoup
 from typing import List, Tuple
 from tqdm import tqdm
 
-
-
-
 def _parse_stars_text(text: str) -> int:
     if not text:
         return 0

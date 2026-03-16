@@ -37,6 +37,17 @@ class DatabaseManager:
         exists = cur.fetchone() is not None
         conn.close()
         return exists
+    
+    def insert_repos(self, date: str, repos= List[Tuple[str, int]]):
+        conn = self._connect()
+        cur = conn.cursor()
+        cur.executemany(
+            "INSERT OR REPLACE INTO trending_repos (date, repo_name, stars) VALUES (?, ?, ?)",
+            [(date, name, int(stars)) for name, stars in repos]
+        )
+        conn.commit()
+        conn.close()
+
 
 
     

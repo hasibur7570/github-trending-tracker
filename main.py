@@ -37,7 +37,8 @@ def main():
         scraper = GitHubScraper(url, headers=headers)
         try:
             repos = scraper.scrape_trending()
-            print(repos)
+            db.insert_repos(today, repos)
+            print(f"Inserted/Updated: {len(repos)} repos for {today}")
         except Exception as e:
             print(f"Exception occured while scraping data from github. Error: {e}")
 
