@@ -41,6 +41,21 @@ def main():
             print(f"Inserted/Updated: {len(repos)} repos for {today}")
         except Exception as e:
             print(f"Exception occured while scraping data from github. Error: {e}")
+    try:
+        # user can see github_trending_repos of Daily, Weekly, or Monthly
+        # taking input from user as -> 1 == daily, -1 == last 7 days, -2 == Monthly
+        days = int(input("Enter number of days to analyze (e.g. 7): ").strip())
+    except Exception:
+        print("Invalid input! Defaulting to last 7 days")
+        days = 7
+    
+    rows = db.fetch_last_n_days(days)
+    if not rows:
+        print("No data found! Exiting.")
+        return
+    else:
+        print(rows)   
+
 
 
 if __name__ == "__main__":

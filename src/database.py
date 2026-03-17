@@ -48,6 +48,22 @@ class DatabaseManager:
         conn.commit()
         conn.close()
 
+    def fetch_last_n_days(self, days: int) -> List[Tuple[str, str, int]]:
+        conn = self._connect()
+        cur = conn.cursor()
+        if days <= 0:
+            cur.execute("SELECT date, repo_name, stars FROM trending_repos ORDER BY date ASC, stars DESC")
+            rows = cur.fetchall()
+            conn.close()
+            return rows
+        today = datetime.now().date()
+        start_date = (today - timedelta(days=days -1)).strftime("%Y-%m-%d")
+        cur.execute("SELECT date, repo_name, stars FROM trending_repos WHERE date >= ? ORDER BY date ASC, stars DESC", (start_date,))
+        rows = cur.fetchall()
+        conn.close()
+        return rows
+
+
 
 
     
