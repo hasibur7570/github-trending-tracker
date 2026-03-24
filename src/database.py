@@ -57,7 +57,7 @@ class DatabaseManager:
             conn.close()
             return rows
         today = datetime.now().date()
-        start_date = (today - timedelta(days=days -1)).strftime("%Y-%m-%d")
+        start_date = (today - timedelta(days=days - 1)).strftime("%Y-%m-%d")
         cur.execute("SELECT date, repo_name, stars FROM trending_repos WHERE date >= ? ORDER BY date ASC, stars DESC", (start_date,))
         rows = cur.fetchall()
         conn.close()

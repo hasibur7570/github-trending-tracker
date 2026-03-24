@@ -9,4 +9,8 @@ database:
 output:
   folder: "output"
 
+plot:
+  figsize: [10, 6]
+  top_n: 10
+
 

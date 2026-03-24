@@ -9,6 +9,7 @@ if PROJECT_ROOT not in sys.path:
 from src.database import DatabaseManager
 from src.utils import load_config, ensure_folder_exists, get_today_date
 from src.scraper import GitHubScraper
+from src.stats import summarize_stats
 
 
 def main():
@@ -54,7 +55,9 @@ def main():
         print("No data found! Exiting.")
         return
     else:
-        print(rows)   
+        stats = summarize_stats(rows, top_n=cfg["plot"]["top_n"], min_presence_pct=0.3)
+    print("\n========== Stats ===========")
+    pprint.pprint(stats) 
 
 
 
