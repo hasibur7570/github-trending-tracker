@@ -75,3 +75,10 @@ def summarize_stats(rows: List[Tuple[str, str, int]], top_n : int = 10, min_pres
     }
 
     return summary
+
+def top_repo_names_from_summary(summary: Dict, fallback_top_n: int = 10) -> List[str]:
+    for key in ("consistent_repos", "most_present", "top_by_average_stars"):
+        items = summary.get(key) or []
+        if items:
+            return [r["repo_name"] for r in items][:fallback_top_n]
+    return []

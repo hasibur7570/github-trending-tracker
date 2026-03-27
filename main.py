@@ -9,7 +9,8 @@ if PROJECT_ROOT not in sys.path:
 from src.database import DatabaseManager
 from src.utils import load_config, ensure_folder_exists, get_today_date
 from src.scraper import GitHubScraper
-from src.stats import summarize_stats
+from src.stats import summarize_stats, top_repo_names_from_summary
+from src.plotting import plot_top_repos
 
 
 def main():
@@ -58,6 +59,13 @@ def main():
         stats = summarize_stats(rows, top_n=cfg["plot"]["top_n"], min_presence_pct=0.3)
     print("\n========== Stats ===========")
     pprint.pprint(stats) 
+
+    top_names = top_repo_names_from_summary(stats, fallback_top_n=cfg["plot"]["top_n"])
+    
+    if not top_names:
+        print("No repos found to plot.")
+    else:
+        plot_top_repos(rows, output_folder, top_repos=top_names, figsize=tuple(cfg["plot"]["figsize"]))
 
 
 
